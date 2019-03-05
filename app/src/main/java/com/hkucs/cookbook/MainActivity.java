@@ -13,18 +13,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ScrollView;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+    private FloatingSearchView searchView;
+    private AppBarLayout appBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setComponentRef();
+        appBarAddOffsetListener();
 //        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        setToolBarElevationStyle();
+//        setToolBarElevationStyle();
+    }
+
+    private void setComponentRef() {
+        searchView = findViewById(R.id.floating_search_view);
+        appBarLayout = findViewById(R.id.appBarLayout);
+    }
+
+    private void appBarAddOffsetListener() {
+        appBarLayout.addOnOffsetChangedListener(this);
+    }
+
+    private void setToolBar() {
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
     }
 
     private void setToolBarElevationStyle() {
@@ -65,5 +83,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        searchView.setTranslationY(verticalOffset);
     }
 }
