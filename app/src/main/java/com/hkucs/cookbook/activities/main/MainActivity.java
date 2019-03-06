@@ -1,30 +1,24 @@
 package com.hkucs.cookbook.activities.main;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.google.android.flexbox.AlignItems;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.appbar.AppBarLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LayoutAnimationController;
-import android.view.animation.TranslateAnimation;
-
-import com.arlib.floatingsearchview.FloatingSearchView;
 import com.hkucs.cookbook.R;
 import com.hkucs.cookbook.activities.CookbookActivity;
 import com.hkucs.cookbook.activities.main.adapters.RecipeCategoryAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends CookbookActivity implements AppBarLayout.OnOffsetChangedListener {
     private FloatingSearchView searchView;
@@ -34,18 +28,23 @@ public class MainActivity extends CookbookActivity implements AppBarLayout.OnOff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.activity_main);
         setComponentRef();
+        setSearchViewStyle();
         appBarAddOffsetListener();
         initRecipeCategoryRecyclerView();
 //        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-//        setToolBarElevationStyle();
+        setToolBarElevationStyle();
     }
 
     private void setComponentRef() {
         searchView = findViewById(R.id.main_floating_search_view);
         appBarLayout = findViewById(R.id.main_app_bar_layout);
         recipeCategoryRecyclerView = findViewById(R.id.main_recipe_category_recycler_view);
+    }
+
+    private void setSearchViewStyle() {
+        searchView.findViewById(R.id.search_query_section).setBackgroundColor(Color.TRANSPARENT);
     }
 
     private void appBarAddOffsetListener() {
@@ -61,7 +60,8 @@ public class MainActivity extends CookbookActivity implements AppBarLayout.OnOff
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
         layoutManager.setFlexDirection(FlexDirection.ROW);
         layoutManager.setFlexWrap(FlexWrap.WRAP);
-        layoutManager.setAlignItems(AlignItems.STRETCH);
+        layoutManager.setJustifyContent(JustifyContent.SPACE_AROUND);
+        layoutManager.setAlignItems(AlignItems.CENTER);
         recipeCategoryRecyclerView.setLayoutManager(layoutManager);
     }
 
@@ -70,23 +70,25 @@ public class MainActivity extends CookbookActivity implements AppBarLayout.OnOff
 //        setSupportActionBar(toolbar);
     }
 
-//    private void setToolBarElevationStyle() {
-//        final NestedScrollView nestedScrollView = findViewById(R.id.nestedScrollView);
-//        final AppBarLayout appBarLayout = findViewById(R.id.appBarLayout);
-//        final int animationDelay = 100;
-//        final int animationDuration = 250;
-//        nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (view, newScrollX, newScrollY, oldScrollX, oldScrollY) -> {
-//            if(newScrollY > 0 && oldScrollY == 0) {
-//                appBarLayout.setTranslationZ(4 * getResources().getDisplayMetrics().density);
-//            } else if(newScrollY == 0){
-//                appBarLayout.animate()
-//                        .translationZ(0)
-//                        .setDuration(animationDuration)
-//                        .setStartDelay(animationDelay)
-//                        .start();
-//            }
-//        });
-//    }
+
+    private void setToolBarElevationStyle() {
+        recipeCategoryRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                System.out.println(dy);
+                if (dy > 0) {
+                    appBarLayout.setTranslationZ(4 * getResources().getDisplayMetrics().density);
+                } else {
+                    appBarLayout.animate()
+                            .translationZ(0)
+                            .setDuration(100)
+                            .setStartDelay(250)
+                            .start();
+                }
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,6 +114,15 @@ public class MainActivity extends CookbookActivity implements AppBarLayout.OnOff
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        searchView.setTranslationY(verticalOffset);
+//        searchView.setTranslationY(verticalOffset);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchBarFocused()) {
+            searchView.clearSearchFocus();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

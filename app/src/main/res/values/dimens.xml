@@ -5,4 +5,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="toolbar_size">54dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
+
+    <dimen name="search_bar_top_margin">4dp</dimen>
+
+    <dimen name="recipe_category_item_width">150dp</dimen>
+    <dimen name="recipe_category_item_height">180dp</dimen>
+    <dimen name="recipe_category_item_title_height">50dp</dimen>
 </resources>

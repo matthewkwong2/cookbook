@@ -1,34 +1,26 @@
 package com.hkucs.cookbook.activities.main.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.flexbox.FlexboxLayoutManager;
 import com.hkucs.cookbook.R;
 import com.hkucs.cookbook.activities.testActivity.TestActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAdapter.ViewHolder> {
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAdapter.ViewHolder> implements Filterable {
     private final Context context;
     private final List<RecipeCategory> recipeCategories;
     private final int[] drawableId = new int[]{
@@ -71,7 +63,7 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(
-                R.layout.main_recipe_category_item,
+                R.layout.recipe_category_item,
                 viewGroup,
                 false
         );
@@ -88,40 +80,47 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
         return recipeCategories.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                return null;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            }
+        };
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final Button button;
+        private CardView cardView;
+        private TextView textView;
+        private ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            button = itemView.findViewById(R.id.main_recipe_category_item_image_button);
-            button.setOnClickListener(this);
+            cardView = itemView.findViewById(R.id.card_view);
+            textView = itemView.findViewById(R.id.text_view);
+            imageView = itemView.findViewById(R.id.image_view);
+            cardView.setOnClickListener(this);
+
         }
 
         public void bindTo(RecipeCategory recipeCategory) {
             setContent(recipeCategory);
-            setLayoutParams();
         }
 
         private void setContent(@NonNull RecipeCategory recipeCategory) {
-            button.setText(recipeCategory.name);
-
-            Drawable backgroundImage = context.getDrawable(recipeCategory.drawableId);
-            assert backgroundImage != null;
-            backgroundImage.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-            button.setBackground(backgroundImage);
-        }
-
-        private void setLayoutParams() {
-            ViewGroup.LayoutParams containerLayoutParams = button.getLayoutParams();
-            if (containerLayoutParams instanceof FlexboxLayoutManager.LayoutParams) {
-                FlexboxLayoutManager.LayoutParams flexboxLayoutParams = (FlexboxLayoutManager.LayoutParams) containerLayoutParams;
-                flexboxLayoutParams.setFlexGrow(1.0f);
-            }
+            textView.setText(recipeCategory.name);
+            imageView.setImageDrawable(context.getDrawable(recipeCategory.drawableId));
         }
 
         @Override
         public void onClick(View view) {
-//            Log.d("Item click", "clicked");
             Intent intent = new Intent(context, TestActivity.class);
             context.startActivity(intent);
         }

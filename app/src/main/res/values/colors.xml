@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#666666</color>
-    <color name="colorBackground">#fafafa</color>
+    <color name="colorBackground">#FFFFFF</color>
     <color name="colorAccent">#666666</color>
 
     <color name="colorRecipeItemImageTint">#6F000000</color>
