@@ -1,4 +1,31 @@
 <resources>
     <string name="app_name">CookBook</string>
     <string name="action_settings">Settings</string>
+
+    <!--recipe categories-->
+    <string-array name="recipe_categories">
+        <item>Desserts</item>
+        <item>Dinners</item>
+        <item>Lunch</item>
+        <item>Beef</item>
+        <item>Beans and Legumes</item>
+        <item>Chicken Recipes</item>
+        <item>Chocolate</item>
+        <item>Fruit</item>
+        <item>Game Meats</item>
+        <item>Grains</item>
+        <item>Mushrooms</item>
+        <item>Pasta</item>
+        <item>Pork Recipes</item>
+        <item>Potatoes</item>
+        <item>Poultry</item>
+        <item>Rice</item>
+        <item>Salmon</item>
+        <item>Seafood</item>
+        <item>Shrimp</item>
+        <item>Tofu and Tempeh</item>
+        <item>Turkey</item>
+        <item>Vegetable Recipes</item>
+    </string-array>
+    <string name="title_activity_test">TestActivity</string>
 </resources>

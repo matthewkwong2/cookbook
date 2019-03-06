@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.main.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
@@ -15,7 +15,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_size"
+            android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways" />
 
         <!--<android.support.v7.widget.Toolbar-->
@@ -25,12 +25,12 @@
         <!--android:background="?attr/colorPrimary"-->
         <!--app:popupTheme="@style/AppTheme.PopupOverlay"/>-->
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/main_content" />
 
     <com.arlib.floatingsearchview.FloatingSearchView
-        android:id="@+id/floating_search_view"
+        android:id="@+id/main_floating_search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:floatingSearch_close_search_on_keyboard_dismiss="false"
@@ -38,11 +38,13 @@
         app:floatingSearch_dismissOnOutsideTouch="true"
         app:floatingSearch_leftActionMode="noLeftAction"
         app:floatingSearch_menu="@menu/menu_main"
-        app:floatingSearch_searchBarMarginLeft="@dimen/search_view_horizontal_inset"
-        app:floatingSearch_searchBarMarginRight="@dimen/search_view_horizontal_inset"
-        app:floatingSearch_searchBarMarginTop="@dimen/search_view_top_inset"
+        app:floatingSearch_searchBarMarginLeft="-5dp"
+        app:floatingSearch_searchBarMarginRight="-5dp"
+        app:floatingSearch_searchBarMarginTop="-5dp"
         app:floatingSearch_searchHint="Search..."
         app:floatingSearch_showSearchKey="true"
-        app:floatingSearch_suggestionsListAnimDuration="250" />
+        app:floatingSearch_suggestionsListAnimDuration="250"
+        android:layout_marginTop="8dp"
+        app:elevation="4dp"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
