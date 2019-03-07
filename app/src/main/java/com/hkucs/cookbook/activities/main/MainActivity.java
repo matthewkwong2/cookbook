@@ -1,7 +1,6 @@
 package com.hkucs.cookbook.activities.main;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,35 +24,76 @@ public class MainActivity extends CookbookActivity implements AppBarLayout.OnOff
     private AppBarLayout appBarLayout;
     private RecyclerView recipeCategoryRecyclerView;
 
+    private RecipeCategoryAdapter recipeCategoryAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setComponentRef();
-        setSearchViewStyle();
-        appBarAddOffsetListener();
-        initRecipeCategoryRecyclerView();
+        initComponents();
 //        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void initComponents() {
+        setSearchView();
+        setRecipeCategoryRecyclerView();
+        setAppBarLayout();
+    }
+
+    private void setSearchView() {
+        searchView = findViewById(R.id.main_floating_search_view);
+        setSearchViewStyle();
+        setSearchViewSearchListener();
+    }
+
+    private void setAppBarLayout() {
+        appBarLayout = findViewById(R.id.main_app_bar_layout);
+        setAppBarAddOffsetListener();
         setToolBarElevationStyle();
     }
 
-    private void setComponentRef() {
-        searchView = findViewById(R.id.main_floating_search_view);
-        appBarLayout = findViewById(R.id.main_app_bar_layout);
+    private void setRecipeCategoryRecyclerView() {
         recipeCategoryRecyclerView = findViewById(R.id.main_recipe_category_recycler_view);
+        setRecipeCategoryRecyclerViewAdapter();
+        setRecipeCategoryRecyclerViewLayoutManager();
     }
 
     private void setSearchViewStyle() {
         searchView.findViewById(R.id.search_query_section).setBackgroundColor(Color.TRANSPARENT);
     }
 
-    private void appBarAddOffsetListener() {
+    private void setSearchViewSearchListener() {
+        searchView.setOnQueryChangeListener((oldQuery, newQuery) -> {
+            recipeCategoryAdapter.getFilter().filter(newQuery);
+        });
+    }
+
+    private void setAppBarAddOffsetListener() {
         appBarLayout.addOnOffsetChangedListener(this);
     }
 
-    private void initRecipeCategoryRecyclerView() {
-        recipeCategoryRecyclerView.setAdapter(new RecipeCategoryAdapter(this));
-        setRecipeCategoryRecyclerViewLayoutManager();
+    private void setToolBarElevationStyle() {
+        recipeCategoryRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                final int offset = recipeCategoryRecyclerView.computeVerticalScrollOffset();
+                if (offset > 0) {
+                    appBarLayout.setTranslationZ(4 * getResources().getDisplayMetrics().density);
+                } else {
+                    appBarLayout.animate()
+                            .translationZ(0)
+                            .setDuration(100)
+                            .setStartDelay(250)
+                            .start();
+                }
+            }
+        });
+    }
+
+    private void setRecipeCategoryRecyclerViewAdapter() {
+        recipeCategoryAdapter = new RecipeCategoryAdapter(this);
+        recipeCategoryRecyclerView.setAdapter(recipeCategoryAdapter);
     }
 
     private void setRecipeCategoryRecyclerViewLayoutManager() {
@@ -68,26 +108,6 @@ public class MainActivity extends CookbookActivity implements AppBarLayout.OnOff
     private void setToolBar() {
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-    }
-
-
-    private void setToolBarElevationStyle() {
-        recipeCategoryRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                System.out.println(dy);
-                if (dy > 0) {
-                    appBarLayout.setTranslationZ(4 * getResources().getDisplayMetrics().density);
-                } else {
-                    appBarLayout.animate()
-                            .translationZ(0)
-                            .setDuration(100)
-                            .setStartDelay(250)
-                            .start();
-                }
-            }
-        });
     }
 
     @Override

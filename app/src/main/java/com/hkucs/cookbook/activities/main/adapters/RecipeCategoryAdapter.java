@@ -44,10 +44,12 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
             R.drawable.cat_18,
             R.drawable.cat_19
     };
+    private List<RecipeCategory> filteredRecipeCategories;
 
     public RecipeCategoryAdapter(Context context) {
         this.context = context;
         recipeCategories = initCategories();
+        filteredRecipeCategories = initCategories();
     }
 
     private List<RecipeCategory> initCategories() {
@@ -72,12 +74,12 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int idx) {
-        viewHolder.bindTo(recipeCategories.get(idx));
+        viewHolder.bindTo(filteredRecipeCategories.get(idx));
     }
 
     @Override
     public int getItemCount() {
-        return recipeCategories.size();
+        return filteredRecipeCategories.size();
     }
 
     @Override
@@ -86,12 +88,29 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                return null;
+                String keywords = constraint.toString();
+                if (keywords.isEmpty()) {
+                    filteredRecipeCategories = recipeCategories;
+                } else {
+                    List<RecipeCategory> filteredList = new ArrayList<>();
+                    for (RecipeCategory recipeCategory : recipeCategories) {
+                        if (recipeCategory.name.toLowerCase().contains(keywords.toLowerCase())) {
+                            filteredList.add(recipeCategory);
+                        }
+                    }
+
+                    filteredRecipeCategories = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredRecipeCategories;
+                return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-
+                filteredRecipeCategories = (List<RecipeCategory>) results.values;
+                notifyDataSetChanged();
             }
         };
     }
