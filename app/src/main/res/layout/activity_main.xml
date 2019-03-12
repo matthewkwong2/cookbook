@@ -11,24 +11,34 @@
         android:id="@+id/main_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="@dimen/toolbar_elevation">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <com.arlib.floatingsearchview.FloatingSearchView
             android:id="@+id/main_floating_search_view"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:floatingSearch_actionMenuOverflowColor="@color/colorPrimary"
+            app:floatingSearch_backgroundColor="@color/colorAccent"
+            app:floatingSearch_clearBtnColor="@color/colorPrimary"
             app:floatingSearch_close_search_on_keyboard_dismiss="false"
             app:floatingSearch_dimBackground="false"
             app:floatingSearch_dismissOnOutsideTouch="false"
+            app:floatingSearch_dividerColor="@color/colorPrimary"
+            app:floatingSearch_hintTextColor="@color/colorPrimary"
+            app:floatingSearch_leftActionColor="@color/colorPrimary"
             app:floatingSearch_leftActionMode="noLeftAction"
             app:floatingSearch_menu="@menu/menu_main"
+            app:floatingSearch_menuItemIconColor="@color/colorPrimary"
             app:floatingSearch_searchBarMarginLeft="-5dp"
             app:floatingSearch_searchBarMarginRight="-5dp"
             app:floatingSearch_searchBarMarginTop="-5dp"
             app:floatingSearch_searchHint="@string/search_recipe"
             app:floatingSearch_showSearchKey="true"
+            app:floatingSearch_suggestionRightIconColor="@color/colorPrimary"
             app:floatingSearch_suggestionsListAnimDuration="250"
+            app:floatingSearch_viewSearchInputTextColor="@color/colorPrimary"
+            app:floatingSearch_viewSuggestionItemTextColor="@color/colorPrimary"
+            app:floatingSearch_viewTextColor="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways" />
     </com.google.android.material.appbar.AppBarLayout>
 

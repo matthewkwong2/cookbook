@@ -28,7 +28,7 @@
             android:layout_height="@dimen/recipe_category_item_title_height"
             android:background="@drawable/recipe_category_item_title_background"
             android:gravity="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorText"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent" />

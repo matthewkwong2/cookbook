@@ -49,7 +49,6 @@ public class MainActivity extends CookbookActivity implements AppBarLayout.OnOff
     private void setAppBarLayout() {
         appBarLayout = findViewById(R.id.main_app_bar_layout);
         setAppBarAddOffsetListener();
-        setToolBarElevationStyle();
     }
 
     private void setRecipeCategoryRecyclerView() {
@@ -70,25 +69,6 @@ public class MainActivity extends CookbookActivity implements AppBarLayout.OnOff
 
     private void setAppBarAddOffsetListener() {
         appBarLayout.addOnOffsetChangedListener(this);
-    }
-
-    private void setToolBarElevationStyle() {
-        recipeCategoryRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                final int offset = recipeCategoryRecyclerView.computeVerticalScrollOffset();
-                if (offset > 0) {
-                    appBarLayout.setTranslationZ(4 * getResources().getDisplayMetrics().density);
-                } else {
-                    appBarLayout.animate()
-                            .translationZ(0)
-                            .setDuration(100)
-                            .setStartDelay(250)
-                            .start();
-                }
-            }
-        });
     }
 
     private void setRecipeCategoryRecyclerViewAdapter() {

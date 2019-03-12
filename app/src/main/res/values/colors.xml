@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#666666</color>
     <color name="colorBackground">#FFFFFF</color>
-    <color name="colorAccent">#666666</color>
+    <color name="colorAccent">#4ECDB1</color>
+    <color name="colorText">#3F3F3F</color>
 
     <color name="colorRecipeItemImageTint">#6F000000</color>
 </resources>
