@@ -84,7 +84,6 @@ public class MainActivity extends CookbookActivity implements AppBarLayout.OnOff
         layoutManager.setAlignItems(AlignItems.CENTER);
         recipeCategoryRecyclerView.setLayoutManager(layoutManager);
     }
-
     private void setToolBar() {
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);

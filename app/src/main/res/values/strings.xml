@@ -30,4 +30,7 @@
         <item>Vegetable Recipes</item>
     </string-array>
     <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_recipe_menu">RecipeMenu</string>
+    <string name="testing">Testing</string>
+    <string name="image_description">Recipe Image</string>
 </resources>

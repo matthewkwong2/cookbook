@@ -2,6 +2,7 @@ package com.hkucs.cookbook.activities.main.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hkucs.cookbook.R;
-import com.hkucs.cookbook.activities.testActivity.TestActivity;
+import com.hkucs.cookbook.activities.recipeMenuActivity.RecipeMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,7 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int idx) {
         viewHolder.bindTo(filteredRecipeCategories.get(idx));
+        viewHolder.cardId = idx+1;
     }
 
     @Override
@@ -120,6 +122,8 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
         private TextView textView;
         private ImageView imageView;
 
+        public Integer cardId;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.card_view);
@@ -140,7 +144,9 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(context, TestActivity.class);
+            Intent intent = new Intent(context, RecipeMenu.class);
+            Log.d("CLICKED", "onClick: "+this.cardId);
+            intent.putExtra("categoryId",Integer.valueOf(this.cardId));
             context.startActivity(intent);
         }
     }
