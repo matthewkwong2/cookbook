@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.hkucs.cookbook.activities.recipeMenuActivity.RecipeItem;
+import com.hkucs.cookbook.activities.slideshow.Procedure;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG         = "DatabaseHelper";
     public static String DATABASE_NAME      = "Cookbook";
-    private static int DATABASE_VERSION     = 1;
+    private static int DATABASE_VERSION     = 6;
     private static final String TABLE_NAME  = "recipe";
     private static final String KEY         = "recipe_id";
     private static final String CATEGORY_KEY = "category_id";
@@ -23,6 +24,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TIME        = "time";
     private static final String SCORE       = "score";
     private static final String IMAGE_ID    = "image_id";
+    private static final String INGREDIENTS = "ingredients";
+
+    private static final String TABLE2_NAME = "procedure";
+    private static final String STEP = "step";
+    private static final String RECIPEID = "recipeId";
+    private static final String DESCRIPTION = "description";
+    private static final String IMGNAME = "imgName";
     private static Context con;
 
 
@@ -41,10 +49,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 +CATEGORY_KEY+" INTEGER, "
                 +TIME+" INTEGER, "
                 +SCORE+" INTEGER, "
-                +IMAGE_ID+ " TEXT"
+                +IMAGE_ID+" TEXT, "
+                +INGREDIENTS+ " TEXT"
                 +" );";
+
+        String createStepTable = "CREATE TABLE "+ TABLE2_NAME +
+                "("+KEY+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                +RECIPEID+" INTEGER, "
+                +STEP+" INTEGER, "
+                +IMGNAME+" TEXT, "
+                +DESCRIPTION+" TEXT"
+                +" );";
+
         if(doesDatabaseExist(con,DATABASE_NAME)){
             db.execSQL(createTable);
+            db.execSQL(createStepTable);
         }else{
             Log.d(TAG, "onCreate: The database "+DATABASE_NAME+" exist already.");
         }
@@ -55,11 +74,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE2_NAME);
         onCreate(db);
     }
     @Override
     public  void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE2_NAME);
         onCreate(db);
     }
 
@@ -80,13 +101,61 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int score = c.getInt(c.getColumnIndex(SCORE));
                 String name = c.getString(c.getColumnIndex(NAME));
                 String image_id = c.getString(c.getColumnIndex(IMAGE_ID));
-                RecipeItem item = new RecipeItem(name,time,score,id,image_id,cat_id);
+                String ingredients = c.getString(c.getColumnIndex(INGREDIENTS));
+                RecipeItem item = new RecipeItem(name,time,score,id,image_id,cat_id,ingredients);
 
                 recipeItemList.add(item);
             }while (c.moveToNext());
         }
 
         return recipeItemList;
+
+    }
+
+    public RecipeItem getRecipesById(Integer itemId){
+        if(itemId == null){
+            return null;
+        }
+        RecipeItem recipe = new RecipeItem();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM "+ TABLE_NAME + " WHERE "+KEY+"="+itemId;
+
+        Cursor c = db.rawQuery(selectQuery,null);
+        if(c.moveToNext()){
+            int cat_id = c.getInt(c.getColumnIndex(CATEGORY_KEY));
+            int id = c.getInt(c.getColumnIndex(KEY));
+            int time = c.getInt(c.getColumnIndex(TIME));
+            int score = c.getInt(c.getColumnIndex(SCORE));
+            String name = c.getString(c.getColumnIndex(NAME));
+            String image_id = c.getString(c.getColumnIndex(IMAGE_ID));
+            String ingredients = c.getString(c.getColumnIndex(INGREDIENTS));
+            recipe = new RecipeItem(name,time,score,id,image_id,cat_id,ingredients);
+        }
+        return recipe;
+
+    }
+
+    public ArrayList<Procedure> getProcedureById(Integer repId){
+        if(repId < 1 || repId == null){
+            return null;
+        }
+        ArrayList<Procedure> proceduresList = new ArrayList<Procedure>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM "+ TABLE2_NAME + " WHERE "+RECIPEID+"="+repId + " ORDER BY " + STEP;
+        Cursor c = db.rawQuery(selectQuery,null);
+        if(c.moveToFirst()){
+            do{
+                int id = c.getInt(c.getColumnIndex(RECIPEID));
+                int step = c.getInt(c.getColumnIndex(STEP));
+                String imgName = c.getString(c.getColumnIndex(IMGNAME));;
+                String description = c.getString(c.getColumnIndex(DESCRIPTION));;
+                Procedure p = new Procedure(id,step,imgName,description);
+
+                proceduresList.add(p);
+            }while (c.moveToNext());
+        }
+
+        return proceduresList;
 
     }
 
@@ -101,7 +170,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 +NAME+","
                 +TIME+","
                 +SCORE+","
-                +IMAGE_ID;
+                +IMAGE_ID+","
+                +INGREDIENTS;
 
         StringBuilder contentStr = new StringBuilder();
         int listLen = recipeItemList.size();
@@ -111,7 +181,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     +item.getName()+","
                     +item.getTime()+","
                     +item.getScore()+","
-                    +item.getDrawableId()
+                    +item.getDrawableId()+","
+                    +item.getIngredients()
                     +")";
             listLen -= 1;
             if(listLen >0)
@@ -129,6 +200,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean insertMultipleProcedure(ArrayList<Procedure> procedureList){
+        if(procedureList == null || procedureList.isEmpty()) {
+            Log.d("HI", "Empty List");
+            return false;
+        }
+        SQLiteDatabase db = this.getWritableDatabase();
+        String columnStr =
+                        RECIPEID+","
+                        +STEP+","
+                                +IMGNAME+","
+                        +DESCRIPTION;
+        Log.d("HI",columnStr);
+        StringBuilder contentStr2 = new StringBuilder();
+        int listLen = procedureList.size();
+        for( Procedure p:  procedureList){
+            String pStr = "("
+                    +p.getId()+","
+                    +p.getStep()+","
+                    +p.getImgPath()+","
+                    +p.getDescription()
+                    +")";
+            listLen -= 1;
+            if(listLen >0)
+                pStr += ",";
+            contentStr2.append(pStr);
+            Log.d("HI", pStr);
+        }
+        String queryStr = "INSERT INTO "+TABLE2_NAME+" ("+columnStr+") VALUES "+contentStr2.toString();
+        Log.d("HI", queryStr);
+        try{
+            db.execSQL(queryStr);
+        }catch (SQLException e){
+            Log.d("hi","ERROR: "+e);
+            return false;
+        }
+        return true;
+
+    }
+
 //    do checking
     private static boolean doesDatabaseExist(Context context, String dbName) {
         File dbFile = context.getDatabasePath(dbName);
@@ -138,6 +248,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public  void cleanTable(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from "+ TABLE_NAME);
+    }
+
+    public  void cleanTable2(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+ TABLE2_NAME);
+        Log.d("hi", "cleanTable2: ok");
     }
 
     }

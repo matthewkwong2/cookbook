@@ -33,4 +33,7 @@
     <string name="title_activity_recipe_menu">RecipeMenu</string>
     <string name="testing">Testing</string>
     <string name="image_description">Recipe Image</string>
+    <string name="textview">TextView</string>
+    <string name="title_activity_slide_show">SlideShowActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

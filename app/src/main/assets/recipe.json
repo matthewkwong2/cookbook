@@ -5,140 +5,160 @@
 			"name":"\"Quick Whoopie Pies\"",
 			"time":"10",
 			"score":"5",
-			"image_url":"\"http://images.midwestliving.mdpcdn.com/sites/midwestliving.com/files/styles/slide/public/Quick-Whoopie-Pies-RU266155.jpg?itok=p0yZbuKD\""
+			"image_url":"\"http://images.midwestliving.mdpcdn.com/sites/midwestliving.com/files/styles/slide/public/Quick-Whoopie-Pies-RU266155.jpg?itok=p0yZbuKD\"",
+			"ingredients":"\"12 soft chocolate cookies,3.5 ounce marshmallow creme,1/4 cup butter,4 ounce reduced-fat cream cheese\""
 		},
 		{
 			"cat_id":"1",
 			"name":"\"Chewy Chocolate Caramel Bars\"",
 			"time":"20",
 			"score":"8",
-			"image_url":"\"http://images.midwestliving.mdpcdn.com/sites/midwestliving.com/files/styles/slide/public/550_RU289642.jpg?itok=rTCgkzb8\""
+			"image_url":"\"http://images.midwestliving.mdpcdn.com/sites/midwestliving.com/files/styles/slide/public/550_RU289642.jpg?itok=rTCgkzb8\"",
+			"ingredients":"\"1 German Chocolate cake mix,3/4 cup melted butter,15 ounce evaporated milk,114 ounce unwrapped vanilla caramels,1 cups chopped walnuts,1 cup semisweet chocolate pieces\""
 		},
 		{
 			"cat_id":"1",
 			"name":"\"Strawberry Cool Brûlée\"",
 			"time":"30",
 			"score":"9",
-			"image_url":"\"http://images.midwestliving.mdpcdn.com/sites/midwestliving.com/files/styles/slide/public/Strawberry-Cool-Brulee_RU295318.jpg?itok=FoEm1tmk\""
+			"image_url":"\"http://images.midwestliving.mdpcdn.com/sites/midwestliving.com/files/styles/slide/public/Strawberry-Cool-Brulee_RU295318.jpg?itok=FoEm1tmk\"",
+			"ingredients":"\"2 cups sliced strawberries,8 teaspoons raw sugar,1/2 cup whipping cream,1/3 cup lowfat vanilla yogurt\""
 		},
 		{
 			"cat_id":"2",
 			"name":"\"Tortellini in Brodo\"",
 			"time":"35",
 			"score":"7",
-			"image_url":"\"https://food.fnr.sndimg.com/content/dam/images/food/fullset/2017/1/18/4/FNM030117_Tortellini-in-Brodo_s4x3.jpg.rend.hgtvcom.966.725.suffix/1484874098825.jpeg\""
+			"image_url":"\"https://food.fnr.sndimg.com/content/dam/images/food/fullset/2017/1/18/4/FNM030117_Tortellini-in-Brodo_s4x3.jpg.rend.hgtvcom.966.725.suffix/1484874098825.jpeg\"",
+			"ingredients":"\"300 g beef brisket,150 g beef shank bones,300 g free-range chicken thighs and drumsticks,1/2 an onion,1 stick of celery,1 carrot,200 g tipo 00 flour,2 large free-range eggs,olive oil,75 g higher-welfare prosciutto di Parma,50 g higher-welfare mortadella di Bologna,1 pinch of ground nutmeg,50 g Parmesan cheese\""
 		},
 		{
 			"cat_id":"2",
 			"name":"\"Pork Chops Pizzaiola\"",
 			"time":"40",
 			"score":"7",
-			"image_url":"\"https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/3/25/1/TM2107_Pork-Chops-Pizzaiola_s4x3.jpg.rend.hgtvcom.966.725.suffix/1396271489196.jpeg\""
+			"image_url":"\"https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/3/25/1/TM2107_Pork-Chops-Pizzaiola_s4x3.jpg.rend.hgtvcom.966.725.suffix/1396271489196.jpeg\"",
+			"ingredients":"\"2 tablespoons olive oil,2 bone-in pork loin center-cut chops,Salt and freshly ground black pepper,1 small onion, 15-ounce can diced tomatoes,1 teaspoon herbes de Provence,1/4 teaspoon dried red pepper flakes,1 tablespoon chopped fresh Italian parsley leaves\""
 		},
 		{
 			"cat_id":"3",
 			"name":"\"Bibimbap\"",
 			"time":"20",
 			"score":"6",
-			"image_url":"\"https://dish-environment-prod-contentbucket-10u8bszryovz3.s3.amazonaws.com/assets/s3fs-public/styles/content_image_x_large/public/1194517_Bibimbap-Korean-Rice-With-Mixed-Vegetables_228240-_-Photo-by-Hungry-Gopher-1.jpg?itok=egEWseGV\""
+			"image_url":"\"https://dish-environment-prod-contentbucket-10u8bszryovz3.s3.amazonaws.com/assets/s3fs-public/styles/content_image_x_large/public/1194517_Bibimbap-Korean-Rice-With-Mixed-Vegetables_228240-_-Photo-by-Hungry-Gopher-1.jpg?itok=egEWseGV\"",
+			"ingredients":"\"3 cups short grain rice,8 ounces beef rib eye,2 cups boiled gosari,16 ounces soybean sprouts,1 bunch spinach,2 kirby pickling cucumbers,2 small zucchinis,2 medium carrots,5 teaspoons minced garlic,2 or 3 scallions chopped,soy sauce,sesame oil,roasted sesame seeds,salt and pepper,vegetable or canola oil,4 eggs,4 tablespoons of Korean red chili pepper paste gochujang,1 tablespoon of sugar,1 tablespoon of sesame oil,3 tablespoons of water\""
 		},
 		{
 			"cat_id":"3",
 			"name":"\"Vietnamese noodle\"",
 			"time":"20",
 			"score":"7",
-			"image_url":"\"https://dish-environment-prod-contentbucket-10u8bszryovz3.s3.amazonaws.com/assets/s3fs-public/styles/content_image_x_large/public/Vermicelli-Bowl-1.jpg?itok=kIue_Bjr\""
+			"image_url":"\"https://dish-environment-prod-contentbucket-10u8bszryovz3.s3.amazonaws.com/assets/s3fs-public/styles/content_image_x_large/public/Vermicelli-Bowl-1.jpg?itok=kIue_Bjr\"",
+			"ingredients":"\"12 ounces thin Asian vermicelli noodles,2 carrots shredded,2 cucumbers seeded and shredded,4 green onion chopped,1/2 cups fresh bean sprouts,1/3 cup chopped cilantro,1/2 cup fish sauce,1/2 cup seasoned rice vinegar,3 tablespoons sugar,2 cloves garlic pressed or minced,1/4 teaspoon crushed red pepper,Lime\""
 		},
 		{
 			"cat_id":"3",
 			"name":"\"Tex-Mex Quinoa Salad\"",
 			"time":"10",
 			"score":"8",
-			"image_url":"\"https://dish-environment-prod-contentbucket-10u8bszryovz3.s3.amazonaws.com/assets/s3fs-public/styles/content_image_x_large/public/701869_Tex-Mex-Quinoa-Salad_-159319-_-Photo-by-CookinBug.jpg?itok=Ffei2OM1\""
+			"image_url":"\"https://dish-environment-prod-contentbucket-10u8bszryovz3.s3.amazonaws.com/assets/s3fs-public/styles/content_image_x_large/public/701869_Tex-Mex-Quinoa-Salad_-159319-_-Photo-by-CookinBug.jpg?itok=Ffei2OM1\"",
+			"ingredients":"\"2 cups cooked quinoa,1 small bell pepper, diced,1/2 small red onion, diced,1 cup grape tomatoes, sliced or halved,1 cup black beans,1 cup loosely packed cilantro,1/2 cup corn,1 avocado,2 green onions,2 limes,1/2 cup avocado oil or olive oil,1/2 tsp. ground cumin,1/2 tsp. garlic powder,1/2 tsp. chili powder,1/2 tsp. sea salt\""
 		},
 		{
 			"cat_id":"4",
 			"name":"\"Korean Beef Ribs\"",
 			"time":"50",
 			"score":"7",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/845264.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/845264.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"4",
 			"name":"\"Grilled Steak Tips with Chimichurri\"",
 			"time":"40",
 			"score":"6",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/3372675.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/3372675.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"4",
 			"name":"\"Slow Cooker Pot Roast\"",
 			"time":"50",
 			"score":"5",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/2287775.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/2287775.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"5",
 			"name":"\"Red Beans and Rice\"",
 			"time":"30",
 			"score":"7",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/786800.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/786800.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"5",
 			"name":"\"Rajma (Kidney Bean Curry)\"",
 			"time":"20",
 			"score":"6",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/436400.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/436400.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"5",
 			"name":"\"Indian-Spiced Roasted Chickpeas\"",
 			"time":"50",
 			"score":"8",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/287314.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/287314.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"6",
 			"name":"\"Tender Italian Baked Chicken\"",
 			"time":"100",
 			"score":"7",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/4536524.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/4536524.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"6",
 			"name":"\"Baked Teriyaki Chicken\"",
 			"time":"90",
 			"score":"7",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/4530047.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/4530047.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"6",
 			"name":"\"Garlic Chicken\"",
 			"time":"100",
 			"score":"8",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/4562452.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/4562452.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"6",
 			"name":"\"Chicken Marsala\"",
 			"time":"70",
 			"score":"7",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/5107151.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/5107151.jpg\"",
+			"ingredients":"\" \""
 		},
 		{
 			"cat_id":"7",
 			"name":"\"Chocolate Spoons\"",
 			"time":"10",
 			"score":"3",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/499018.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/499018.jpg\"",
+			"ingredients":"\"60g bittersweet chocolate,6 spoons,toffee bits,sea salt,white chocolate,freeze-dried marshmallows\""
 		},
 		{
 			"cat_id":"7",
 			"name":"\"Best Brownies\"",
 			"time":"120",
 			"score":"9",
-			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/3850414.jpg\""
+			"image_url":"\"https://images.media-allrecipes.com/userphotos/300x300/3850414.jpg\"",
+			"ingredients":"\"185g unsalted butter,185g best dark chocolate,85g plain flour,40g cocoa powder,50g white chocolate,50g milk chocolate,3 large eggs,275g golden caster sugar\""
 		}
 	]
 }

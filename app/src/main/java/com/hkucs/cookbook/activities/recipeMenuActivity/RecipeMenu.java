@@ -144,7 +144,8 @@ public class RecipeMenu extends CookbookActivity implements AppBarLayout.OnOffse
                 Integer score = Integer.valueOf(obj.getString("score"));
                 String image_id = obj.getString("image_url");
                 Integer cat_id = Integer.valueOf(obj.getString("cat_id"));
-                RecipeItem item = new RecipeItem(name,time,score,i+1,image_id,cat_id);
+                String ingredients = obj.getString("ingredients");
+                RecipeItem item = new RecipeItem(name,time,score,i+1,image_id,cat_id,ingredients);
                 recipeItemList.add(item);
             }
         }catch (JSONException e){
@@ -159,6 +160,7 @@ public class RecipeMenu extends CookbookActivity implements AppBarLayout.OnOffse
 //       get json and read json
         ArrayList<RecipeItem> recipeItemList = getDataFromJson();
         databaseHelper.cleanTable();
+        databaseHelper.cleanTable2();
         boolean result = databaseHelper.insertMultipleRecipe(recipeItemList);
         if(result){
             Toast.makeText(this,"Sucessfully insert data",Toast.LENGTH_SHORT).show();

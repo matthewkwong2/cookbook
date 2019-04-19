@@ -9,14 +9,19 @@ public class RecipeItem implements Serializable {
     private int itemId;
     private int catId;
     private String drawableId;
+    private String ingredients;
 
-    public RecipeItem(String name,int time, int score, int itemId, String drawableId, int catId ) {
+    public RecipeItem(){}
+
+    public RecipeItem(String name,int time, int score, int itemId, String drawableId, int catId, String ingredients ) {
         this.name = name;
         this.time = time;
         this.score = score;
         this.itemId = itemId;
         this.drawableId = drawableId;
         this.catId = catId;
+        this.ingredients  = ingredients;
+
     }
     public int getTime(){
         return this.time;
@@ -34,6 +39,7 @@ public class RecipeItem implements Serializable {
         return this.drawableId;
     }
     public int getCatId(){return this.catId;}
+    public String getIngredients(){ return this.ingredients; }
 
 //    setter
     public void setTime(int time){
@@ -52,4 +58,5 @@ public class RecipeItem implements Serializable {
         this.drawableId = drawableId;
     }
     public void setCatId(int catId) { this.catId = catId; }
+    public void setIngredients(String ingredients) { this.ingredients = ingredients; }
 }
