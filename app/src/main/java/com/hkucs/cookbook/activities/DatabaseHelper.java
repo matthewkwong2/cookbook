@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper";
     public static String DATABASE_NAME = "Cookbook";
-    private static int DATABASE_VERSION = 3;
+    private static int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "recipe";
     private static final String KEY = "recipe_id";
     private static final String CATEGORY_KEY = "category_id";
