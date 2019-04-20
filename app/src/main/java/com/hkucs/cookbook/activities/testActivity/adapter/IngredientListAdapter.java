@@ -2,6 +2,7 @@ package com.hkucs.cookbook.activities.testActivity.adapter;
 
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,9 @@ public class IngredientListAdapter extends ArrayAdapter<Ingredient> {
         CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.ingredientCheckBox);
         checkBox.setText(ingredient);
         checkBox.setChecked(checked);
-        checkBox.setTypeface(ResourcesCompat.getFont(context, R.font.cormorant));
+        if(Build.VERSION.SDK_INT >= 26) {
+            checkBox.setTypeface(ResourcesCompat.getFont(context, R.font.cormorant));
+        }
         checkBox.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

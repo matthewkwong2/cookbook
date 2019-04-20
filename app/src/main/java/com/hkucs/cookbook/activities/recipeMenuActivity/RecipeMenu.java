@@ -47,7 +47,9 @@ public class RecipeMenu extends CookbookActivity implements AppBarLayout.OnOffse
         Intent myintent = getIntent();
         Integer categoryId = myintent.getIntExtra("categoryId",1);
 //        do not need to insert if the json file has not changed
-//        insertData();
+        if(databaseHelper.isDatabaseEmpty()) {
+            insertData();
+        }
 
         loadData(categoryId);
         initComponents();

@@ -1,23 +1,9 @@
 package com.hkucs.cookbook.activities.slideshow;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,12 +27,18 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 public class SlideShowActivity extends AppCompatActivity {
 
+    DatabaseHelper databaseHelper;
     /**
      * The {@link androidx.viewpager.widget.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -59,8 +50,6 @@ public class SlideShowActivity extends AppCompatActivity {
     private String TAG = "SlideShow";
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private String JSON_FILE = "procedure.json";
-
-    DatabaseHelper databaseHelper;
     private ArrayList<Procedure> pArrayList = new ArrayList<>();
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -79,7 +68,9 @@ public class SlideShowActivity extends AppCompatActivity {
         Integer repId;
         Integer repTwoId;
         GlobalVariable gv = new GlobalVariable();
-//        insertData();
+        if (databaseHelper.isDatabaseEmpty()) {
+            insertData();
+        }
 
         if (gv.getNumOfRecipe() == 0) {
             repId = intent.getIntExtra("recipeId", 1);
@@ -129,6 +120,92 @@ public class SlideShowActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*
+     * read jsonfile and insert them to the database
+     * */
+    private JSONArray readJson() {
+        try {
+            JSONObject obj = new JSONObject(loadJSONFromAsset(this));
+            Log.d("hi", "readJson:OK");
+            return obj.getJSONArray("procedure");
+        } catch (JSONException e) {
+            Log.d(TAG, "readJson: ERROR cannot read json string as object");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String loadJSONFromAsset(Context context) {
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open(JSON_FILE);
+
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+
+    }
+
+    private ArrayList<Procedure> getDataFromJson() {
+        ArrayList<Procedure> proceduresList = new ArrayList<Procedure>();
+        JSONArray arr = readJson();
+        try {
+            for (int i = 0; i < arr.length(); i++) {
+                JSONObject obj = arr.getJSONObject(i);
+                Integer id = Integer.valueOf(obj.getString("recipeId"));
+                Integer step = Integer.valueOf(obj.getString("step"));
+                String imgName = obj.getString("image_path");
+                String description = obj.getString("description");
+                Procedure item = new Procedure(id, step, imgName, description);
+                Log.d(TAG, description);
+                proceduresList.add(item);
+            }
+        } catch (JSONException e) {
+            Log.d("hi", "getDataFromJson: ERROR in getting json object ");
+            e.printStackTrace();
+        }
+        return proceduresList;
+    }
+
+    private void insertData() {
+//       get json and read json
+        ArrayList<Procedure> proceduresList = getDataFromJson();
+        databaseHelper.cleanTable2();
+        boolean result = databaseHelper.insertMultipleProcedure(proceduresList);
+        if (result) {
+            Toast.makeText(this, "Sucessfully insert data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Error in insert data", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void loadData(Integer rep_Id) {
+        Log.d("RecipeMenu", "load data");
+        ArrayList<Procedure> tempArrayList = databaseHelper.getProcedureById(rep_Id);
+        pArrayList.addAll(tempArrayList);
+        Collections.sort(pArrayList, new Comparator<Procedure>() {
+            @Override
+            public int compare(Procedure o1, Procedure o2) {
+                return o1.getStep() - o2.getStep();
+            }
+        });
+        Log.d("RecipeMenu", "recipeItemArrayList: " + pArrayList);
     }
 
     /**
@@ -240,92 +317,6 @@ public class SlideShowActivity extends AppCompatActivity {
             // Show 3 total pages.
             return pArrayList.size();
         }
-    }
-
-    /*
-     * read jsonfile and insert them to the database
-     * */
-    private JSONArray readJson() {
-        try {
-            JSONObject obj = new JSONObject(loadJSONFromAsset(this));
-            Log.d("hi", "readJson:OK");
-            return obj.getJSONArray("procedure");
-        } catch (JSONException e) {
-            Log.d(TAG, "readJson: ERROR cannot read json string as object");
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private String loadJSONFromAsset(Context context) {
-        String json = null;
-        try {
-            InputStream is = context.getAssets().open(JSON_FILE);
-
-            int size = is.available();
-
-            byte[] buffer = new byte[size];
-
-            is.read(buffer);
-
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-
-    }
-
-    private ArrayList<Procedure> getDataFromJson() {
-        ArrayList<Procedure> proceduresList = new ArrayList<Procedure>();
-        JSONArray arr = readJson();
-        try {
-            for (int i = 0; i < arr.length(); i++) {
-                JSONObject obj = arr.getJSONObject(i);
-                Integer id = Integer.valueOf(obj.getString("recipeId"));
-                Integer step = Integer.valueOf(obj.getString("step"));
-                String imgName = obj.getString("image_path");
-                String description = obj.getString("description");
-                Procedure item = new Procedure(id, step, imgName, description);
-                Log.d(TAG, description);
-                proceduresList.add(item);
-            }
-        } catch (JSONException e) {
-            Log.d("hi", "getDataFromJson: ERROR in getting json object ");
-            e.printStackTrace();
-        }
-        return proceduresList;
-    }
-
-    private void insertData() {
-//       get json and read json
-        ArrayList<Procedure> proceduresList = getDataFromJson();
-        databaseHelper.cleanTable2();
-        boolean result = databaseHelper.insertMultipleProcedure(proceduresList);
-        if (result) {
-            Toast.makeText(this, "Successfully insert data", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Error in insert data", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private void loadData(Integer rep_Id) {
-        Log.d("RecipeMenu", "load data");
-        ArrayList<Procedure> tempArrayList = databaseHelper.getProcedureById(rep_Id);
-        pArrayList.addAll(tempArrayList);
-        Collections.sort(pArrayList, new Comparator<Procedure>() {
-            @Override
-            public int compare(Procedure o1, Procedure o2) {
-                return o1.getStep() - o2.getStep();
-            }
-        });
-        Log.d("RecipeMenu", "recipeItemArrayList: " + pArrayList);
     }
 
 }

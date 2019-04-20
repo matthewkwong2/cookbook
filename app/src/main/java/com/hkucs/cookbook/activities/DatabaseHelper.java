@@ -10,7 +10,6 @@ import android.util.Log;
 import com.hkucs.cookbook.activities.recipeMenuActivity.RecipeItem;
 import com.hkucs.cookbook.activities.slideshow.Procedure;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -25,13 +24,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SCORE = "score";
     private static final String IMAGE_ID = "image_id";
     private static final String INGREDIENTS = "ingredients";
-
     private static final String TABLE2_NAME = "procedure";
     private static final String STEP = "step";
     private static final String RECIPEID = "recipeId";
     private static final String DESCRIPTION = "description";
     private static final String IMGNAME = "imgName";
+    public static String DATABASE_NAME = "Cookbook";
+    private static int DATABASE_VERSION = 6;
     private static Context con;
+    private SQLiteDatabase db;
 
 
     public DatabaseHelper(Context context) {
@@ -39,8 +40,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         con = context;
     }
 
+    //    do checking
+    private boolean isTableExist(SQLiteDatabase db) {
+        Cursor cursor = db.rawQuery("SELECT DISTINCT tbl_name from sqlite_master where tbl_name = '"
+                + TABLE_NAME + "'", null);
+        boolean isExist = cursor.getCount() != 0;
+        cursor.close();
+        return isExist;
+
+    }
+
+    public boolean isDatabaseEmpty() {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        boolean isEmpty = cursor.getCount() == 0;
+        cursor.close();
+        return isEmpty;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
+       System.out.println("on db helper create");
         String createTable = "CREATE TABLE " + TABLE_NAME +
                 "(" + KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + NAME + " TEXT, "
@@ -59,7 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + DESCRIPTION + " TEXT"
                 + " );";
 
-        if (doesDatabaseExist(con, DATABASE_NAME)) {
+        if (!isTableExist(db)) {
             db.execSQL(createTable);
             db.execSQL(createStepTable);
         } else {
@@ -106,6 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 recipeItemList.add(item);
             } while (c.moveToNext());
         }
+        c.close();
 
         return recipeItemList;
 
@@ -130,6 +150,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String ingredients = c.getString(c.getColumnIndex(INGREDIENTS));
             recipe = new RecipeItem(name, time, score, id, image_id, cat_id, ingredients);
         }
+
+        c.close();
         return recipe;
 
     }
@@ -155,6 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 proceduresList.add(p);
             } while (c.moveToNext());
         }
+        c.close();
 
         return proceduresList;
 
@@ -238,12 +261,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return true;
 
-    }
-
-    //    do checking
-    private static boolean doesDatabaseExist(Context context, String dbName) {
-        File dbFile = context.getDatabasePath(dbName);
-        return dbFile.exists();
     }
 
     public void cleanTable() {
