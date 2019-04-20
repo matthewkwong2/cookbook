@@ -29,8 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String RECIPEID = "recipeId";
     private static final String DESCRIPTION = "description";
     private static final String IMGNAME = "imgName";
-    public static String DATABASE_NAME = "Cookbook";
-    private static int DATABASE_VERSION = 6;
     private static Context con;
     private SQLiteDatabase db;
 
