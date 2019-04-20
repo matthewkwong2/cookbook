@@ -39,8 +39,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //    do checking
-    private boolean isTableExist() {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT DISTINCT tbl_name from sqlite_master where tbl_name = '"
+    private boolean isTableExist(SQLiteDatabase db) {
+        Cursor cursor = db.rawQuery("SELECT DISTINCT tbl_name from sqlite_master where tbl_name = '"
                 + TABLE_NAME + "'", null);
         boolean isExist = cursor.getCount() != 0;
         cursor.close();
@@ -76,7 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + DESCRIPTION + " TEXT"
                 + " );";
 
-        if (!isTableExist()) {
+        if (!isTableExist(db)) {
             db.execSQL(createTable);
             db.execSQL(createStepTable);
         } else {
