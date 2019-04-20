@@ -165,7 +165,7 @@ public class RecipeMenu extends CookbookActivity implements AppBarLayout.OnOffse
         databaseHelper.cleanTable2();
         boolean result = databaseHelper.insertMultipleRecipe(recipeItemList);
         if(result){
-            Toast.makeText(this,"Sucessfully insert data",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Successfully insert data",Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this,"Error in insert data",Toast.LENGTH_SHORT).show();
         }

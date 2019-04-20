@@ -70,6 +70,66 @@
       "step":"6",
       "image_path":"\"rep20_4\"",
       "description":"\"Wrap each spoon in cellophane and tie with a small ribbon.\""
+    },
+    {
+      "recipeId":"4",
+      "step":"1",
+      "image_path":"\"cat_1\"",
+      "description":"\"Heat the olive oil in a large pot over medium heat.\""
+    },
+    {
+      "recipeId":"4",
+      "step":"2",
+      "image_path":"\"cat_1\"",
+      "description":"\"Add the leeks, carrots, celery and garlic and cook, stirring occasionally, until the leeks wilt, about 5 minutes. \""
+    },
+    {
+      "recipeId":"4",
+      "step":"3",
+      "image_path":"\"cat_1\"",
+      "description":"\"Timer:300\""
+    },
+    {
+      "recipeId":"4",
+      "step":"4",
+      "image_path":"\"cat_1\"",
+      "description":"\"Add 2 cups water, the chicken broth, parmesan rind, lemon zest and pork bone. \""
+    },
+    {
+      "recipeId":"4",
+      "step":"5",
+      "image_path":"\"cat_1\"",
+      "description":"\"Bring to a simmer and cook until the vegetables are almost tender, about 15 minutes.\""
+    },
+    {
+      "recipeId":"4",
+      "step":"6",
+      "image_path":"\"cat_1\"",
+      "description":"\"Timer:900\""
+    },
+    {
+      "recipeId":"4",
+      "step":"7",
+      "image_path":"\"cat_1\"",
+      "description":"\"Remove the parmesan rind, lemon zest and pork bone from the pot with a slotted spoon. \""
+    },
+    {
+      "recipeId":"4",
+      "step":"8",
+      "image_path":"\"cat_1\"",
+      "description":"\"Bring the broth to a boil over medium heat. Add the tortellini, escarole and diced pork; season with pepper.\""
+    },
+    {
+      "recipeId":"4",
+      "step":"9",
+      "image_path":"\"cat_1\"",
+      "description":"\"Cook until the tortellini and escarole are tender, 4 to 5 minutes.\""
+    },
+    {
+      "recipeId":"4",
+      "step":"10",
+      "image_path":"\"cat_1\"",
+      "description":"\"Timer:10\""
     }
   ]
 }
