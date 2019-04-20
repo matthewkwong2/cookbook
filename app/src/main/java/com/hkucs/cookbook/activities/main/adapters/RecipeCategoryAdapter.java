@@ -57,7 +57,7 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
         final List<RecipeCategory> recipeCategories = new ArrayList<>();
         final String[] recipeCategoryNames = context.getResources().getStringArray(R.array.recipe_categories);
         for (int i = 0; i < recipeCategoryNames.length; i++) {
-            recipeCategories.add(new RecipeCategory(recipeCategoryNames[i], drawableId[i % drawableId.length]));
+            recipeCategories.add(new RecipeCategory(recipeCategoryNames[i], drawableId[i % drawableId.length],i+1));
         }
         return recipeCategories;
     }
@@ -76,7 +76,7 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int idx) {
         viewHolder.bindTo(filteredRecipeCategories.get(idx));
-        viewHolder.cardId = idx+1;
+        viewHolder.cardId = filteredRecipeCategories.get(idx).catId; //idx + 1;
     }
 
     @Override
@@ -145,8 +145,8 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(context, RecipeMenu.class);
-            Log.d("CLICKED", "onClick: "+this.cardId);
-            intent.putExtra("categoryId",Integer.valueOf(this.cardId));
+            Log.d("CLICKED", "onClick: " + this.cardId);
+            intent.putExtra("categoryId", Integer.valueOf(this.cardId));
             context.startActivity(intent);
         }
     }
@@ -154,10 +154,12 @@ public class RecipeCategoryAdapter extends RecyclerView.Adapter<RecipeCategoryAd
     class RecipeCategory {
         private final String name;
         private final int drawableId;
+        private final int catId;
 
-        RecipeCategory(String name, int drawableId) {
+        RecipeCategory(String name, int drawableId, int catId) {
             this.name = name;
             this.drawableId = drawableId;
+            this.catId = catId;
         }
     }
 }
