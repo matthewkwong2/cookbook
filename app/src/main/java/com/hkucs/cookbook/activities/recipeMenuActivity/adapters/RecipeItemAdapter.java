@@ -63,6 +63,7 @@ public class RecipeItemAdapter extends RecyclerView.Adapter<RecipeItemAdapter.Vi
     public RecipeItemAdapter(Context context,ArrayList<RecipeItem> recipeItemList) {
         this.context = context;
         this.recipeItemList = recipeItemList;
+        this.filteredRecipeItemList = recipeItemList;
     }
 
     @NonNull
@@ -74,7 +75,7 @@ public class RecipeItemAdapter extends RecyclerView.Adapter<RecipeItemAdapter.Vi
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        RecipeItem item = recipeItemList.get(position);
+        RecipeItem item = filteredRecipeItemList.get(position);
         holder.titleView.setText(item.getName());
         holder.scoreView.setText(String.valueOf(item.getScore()));
         holder.timeView .setText(String.valueOf(item.getTime()));
@@ -86,7 +87,7 @@ public class RecipeItemAdapter extends RecyclerView.Adapter<RecipeItemAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return recipeItemList.size();
+        return filteredRecipeItemList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
