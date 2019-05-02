@@ -69,6 +69,7 @@ public class SlideShowActivity extends AppCompatActivity {
         Integer repTwoId;
         GlobalVariable gv = new GlobalVariable();
         if (databaseHelper.isDatabaseEmpty()) {
+            System.out.println("insert data");
             insertData();
         }
 
@@ -198,6 +199,7 @@ public class SlideShowActivity extends AppCompatActivity {
     private void loadData(Integer rep_Id) {
         Log.d("RecipeMenu", "load data");
         ArrayList<Procedure> tempArrayList = databaseHelper.getProcedureById(rep_Id);
+        System.out.println("size: " + tempArrayList.size());
         pArrayList.addAll(tempArrayList);
         Collections.sort(pArrayList, new Comparator<Procedure>() {
             @Override

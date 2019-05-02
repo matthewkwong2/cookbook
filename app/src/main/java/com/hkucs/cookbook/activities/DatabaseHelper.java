@@ -49,9 +49,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean isDatabaseEmpty() {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        boolean isEmpty = cursor.getCount() == 0;
-        cursor.close();
+        Cursor recipeCursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor procedureCursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE2_NAME, null);
+        boolean isEmpty = recipeCursor.getCount() == 0 || procedureCursor.getCount() == 0;
+        recipeCursor.close();
+        procedureCursor.close();
         return isEmpty;
     }
 
@@ -102,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //    get all the recipes and their information in the category
     public ArrayList<RecipeItem> getRecipesByCategory(Integer category_id) {
-        if (category_id < 1 || category_id == null) {
+        if (category_id < 1) {
             return null;
         }
         ArrayList<RecipeItem> recipeItemList = new ArrayList<RecipeItem>();
@@ -155,7 +157,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Procedure> getProcedureById(Integer repId) {
-        if (repId < 1 || repId == null) {
+        System.out.println("repId: " + repId);
+        if (repId < 1) {
             return null;
         }
         ArrayList<Procedure> proceduresList = new ArrayList<Procedure>();
